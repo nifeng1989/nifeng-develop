@@ -60,6 +60,7 @@ $RECYCLE.BIN/
 
 #Idea files
 *.iml
-./.idea/*
-./.idea
+.idea/*
+.idea*
+/.idea*
 
