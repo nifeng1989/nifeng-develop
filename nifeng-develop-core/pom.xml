@@ -5,6 +5,7 @@
         <groupId>com.nifeng</groupId>
         <artifactId>nifeng-develop</artifactId>
         <version>1.0</version>
+        
     </parent>
 
     <groupId>com.nifeng</groupId>

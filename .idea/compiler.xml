@@ -22,14 +22,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="nifeng-develop" />
         <module name="nifeng-develop-core" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="nifeng-develop" target="1.5" />
       <module name="nifeng-develop-core" target="1.6" />
-      <module name="selfdevelop" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
