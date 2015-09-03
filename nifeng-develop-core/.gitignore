@@ -1,0 +1,4 @@
+/bin
+*.orig
+/work
+*.iml
