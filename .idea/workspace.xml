@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="29bf9d9e-f49e-4986-830a-b28da90e4b93" name="Default" comment="">
-      <change type="DELETED" beforePath="D:\github\nifeng-develop\.idea\libraries\Maven__junit_junit_3_8_1.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nifeng-develop-core/pom.xml" afterPath="$PROJECT_DIR$/nifeng-develop-core/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="nifeng-develop.iws" />
@@ -38,8 +36,8 @@
       <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.40036902">
-              <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.7693727">
+              <caret line="63" column="7" selection-start-line="63" selection-start-column="7" selection-end-line="63" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -446,12 +444,12 @@
       <created>1441245288450</created>
       <option name="number" value="Default" />
       <updated>1441245288450</updated>
-      <workItem from="1441245297548" duration="2626000" />
+      <workItem from="1441245297548" duration="2673000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2626000" />
+    <option name="totallyTimeSpent" value="2673000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="1" width="1382" height="727" extended-state="0" />
@@ -520,8 +518,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40036902">
-          <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.7693727">
+          <caret line="63" column="7" selection-start-line="63" selection-start-column="7" selection-end-line="63" selection-end-column="7" />
           <folding />
         </state>
       </provider>
