@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<context:component-scan base-package="com.nifeng"></context:component-scan>
+	<!-- For mail settings and future properties files -->
+	<bean id="miniblogPropertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:dbconnect.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- JNDI DataSource for J2EE environments -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.connection.driver_class}" />
+		<property name="url" value="${jdbc.connection.url}" />
+		<property name="username" value="${jdbc.connection.username}" />
+		<property name="password" value="${jdbc.connection.password}" />
+		<property name="initialSize" value="20"/>
+		<property name="maxIdle" value="20"/>
+		<property name="minIdle" value="3"/>
+  		<property name="maxActive" value="40" />
+        <property name="maxWait" value="1000" /><!--超时等待时间1s  -->
+        <property name="timeBetweenEvictionRunsMillis" value="120000" />
+        <property name="minEvictableIdleTimeMillis" value="360000" />
+        <property name="removeAbandoned" value="true" />
+        <property name="removeAbandonedTimeout" value="60" />
+        <property name="poolPreparedStatements" value="true" />
+        <property name="defaultAutoCommit" value="true" />
+        <property name="testOnBorrow" value="true" />
+        <property name="testWhileIdle" value="true" />
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
+	</bean>
+
+ 	<bean id="autoproxy" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator"> 
+		<property name="beanNames">
+		  <list> 
+             <value>*Service*</value> 
+             <value>*Controller</value>
+          </list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">
+		<property name="transactionInterceptor" ref="transactionInterceptor" />
+	</bean>
+
+
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="50000000" />
+ 	   <property name="defaultEncoding" value="utf-8" />
+	</bean>
+
+
+	<bean id="timerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="updateHotWordsWeightTrigger" />
+ 				<ref bean="pullSohuLifeNewsTimerTrigger"/>
+            </list>
+		</property>
+	</bean>
+
+
+
+
+
+    <bean id="simpleAsyncTaskExecutor" class="org.springframework.core.task.SimpleAsyncTaskExecutor">
+		<property name="daemon" value="true" />
+		<property name="concurrencyLimit" value="30" />
+		<property name="threadNamePrefix" value="clearCache" />
+	</bean>
+    
+    <bean id="updateHotWordsWeightJob"  
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
+        <property name="targetObject" ref="timerService" />   
+        <property name="targetMethod" value="updateHotWordsWeight" />   
+        <property name="concurrent" value="false" />   
+    </bean>   
+    
+    <bean id="updateHotWordsWeightTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean"> 
+		<property name="jobDetail" ref="updateHotWordsWeightJob" /> 
+		<property name="cronExpression">
+			 <value>0 0/1 * * * ?</value>
+		</property>  
+	</bean>
+
+
+	
+	<bean id="threadPoolTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="5" />
+		<property name="keepAliveSeconds" value="300" />
+		<property name="maxPoolSize" value="16" />
+		<property name="queueCapacity" value="50000" />
+	</bean>
+
+
+    <bean id="pullSohuLifeNewsTimerTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+        <property name="jobDetail" ref="pullSohuLifeNewsTimerJob" />
+        <property name="startDelay" value="5000"/> <!--设置延迟5秒后运行-->
+        <property name="repeatInterval" value="0"/>
+        <property name="repeatCount" value="0"/> <!--只在启动时执行一次-->
+    </bean>
+	
+</beans>
