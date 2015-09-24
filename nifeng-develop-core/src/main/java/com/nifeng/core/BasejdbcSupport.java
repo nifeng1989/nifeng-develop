@@ -49,7 +49,6 @@ public abstract class BasejdbcSupport<T> implements RowMapper<T>, InitializingBe
 
     protected int insert(final String sql){
         final KeyHolder key = new GeneratedKeyHolder();
-
         jdbcTemplate.update(new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
