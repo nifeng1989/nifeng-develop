@@ -45,7 +45,7 @@
 	<filter>
 		<filter-name>userFilter</filter-name>
 		<filter-class>
-			com.nifeng.server.filter.UserFilter
+			net.fengni.server.filter.UserFilter
 		</filter-class>
 	</filter>
 	<filter-mapping>

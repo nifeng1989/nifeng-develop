@@ -13,7 +13,7 @@
 	<context:component-scan base-package="com.nifeng.server"></context:component-scan>
 
 	<!-- For mail settings and future properties files -->
-	<bean id="miniblogPropertyConfigurer"
+	<!--<bean id="miniblogPropertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
@@ -21,7 +21,7 @@
 			</list>
 		</property>
 	</bean>
-	<!-- JNDI DataSource for J2EE environments -->
+	&lt;!&ndash; JNDI DataSource for J2EE environments &ndash;&gt;
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="${jdbc.connection.driver_class}" />
@@ -32,7 +32,7 @@
 		<property name="maxIdle" value="20"/>
 		<property name="minIdle" value="3"/>
   		<property name="maxActive" value="40" />
-        <property name="maxWait" value="1000" /><!--超时等待时间1s  -->
+        <property name="maxWait" value="1000" />&lt;!&ndash;超时等待时间1s  &ndash;&gt;
         <property name="timeBetweenEvictionRunsMillis" value="120000" />
         <property name="minEvictableIdleTimeMillis" value="360000" />
         <property name="removeAbandoned" value="true" />
@@ -91,6 +91,6 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="50000000" />
  	   <property name="defaultEncoding" value="utf-8" />
-	</bean>
+	</bean>-->
 	
 </beans>

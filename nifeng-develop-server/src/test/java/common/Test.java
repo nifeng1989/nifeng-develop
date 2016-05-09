@@ -1,6 +1,6 @@
 package common;
 
-import com.nifeng.core.user.DaoHelper;
+/*import com.nifeng.core.user.DaoHelper;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -8,9 +8,9 @@ import java.net.NetworkInterface;
 import java.net.UnknownHostException;
 import java.util.*;
 
-/**
+*//**
  * Created by fengni on 2015/9/17.
- */
+ *//*
 public class Test {
     @org.junit.Test
     public void testIp(){
@@ -52,4 +52,4 @@ public class Test {
             System.out.println(key+","+DaoHelper.updataMap.get(key));
         }
     }
-}
+}*/
